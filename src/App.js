@@ -8,9 +8,6 @@ import Blog from "./Components/Blog/Blog";
 import Feedback from "./Components/Feedback/Feedback";
 import Footer from "./Components/Footer/Footer";
 import { useState } from "react";
-import Item from "./Components/Item/Item";
-import Btn from "./UI/Btn/Btn";
-import Input from "./UI/Input/Input"
 
 const MyDiv = styled.div`
   font-size: 14px;
