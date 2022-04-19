@@ -18,11 +18,17 @@ const ItemInRow = styled.div`
 
 
 const Item = function (props) {
+    var options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        timezone: 'UTC'
+    }
     if (!props.item.buttonText) {
         return (
             <ItemInRow>
                 <h3>{props.item.title}</h3>
-                <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.body}</span>
+                <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.date.toLocaleString("ru", options)}</span>
                 <p style={{ marginBottom: `30px` }}>{props.item.addInfo}</p>
                 <Btn onClick={() => props.remove(props.item)}>Delete item</Btn>
             </ItemInRow>
@@ -31,7 +37,8 @@ const Item = function (props) {
     return (
         <ItemInRow>
             <h3>{props.item.title}</h3>
-            <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.body}</span>
+            <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.date.toLocaleString("ru", options)}</span>
+            <p style={{ marginBottom: `30px` }}>{props.item.body}</p>
             <p style={{ marginBottom: `30px` }}>{props.item.addInfo}</p>
             <Btn>{props.item.buttonText}</Btn>
             <Btn onClick={() => props.remove(props.item)}>Delete item</Btn>
