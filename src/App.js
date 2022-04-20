@@ -7,6 +7,7 @@ import './style/style.css';
 import Blog from "./Components/Blog/Blog";
 import Feedback from "./Components/Feedback/Feedback";
 import Footer from "./Components/Footer/Footer";
+import { useState } from "react";
 
 const MyDiv = styled.div`
   font-size: 14px;
@@ -54,7 +55,7 @@ function App() {
       <MyDiv className="App">
         <MyHeader/>
         <Banner />
-        <Blog/>
+        <Blog noItemsFoundText="No items found" sectionTitle='Our latest news'/>
         <Feedback/>
         <Footer/>
       </MyDiv>

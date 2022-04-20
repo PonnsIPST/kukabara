@@ -6,7 +6,7 @@ import Select from "../../UI/Select/Select";
 import { useMemo } from "react";
 
 
-const Blog = function () {
+const Blog = function (props) {
 
 
     const [items, setItems] = useState([
@@ -34,7 +34,6 @@ const Blog = function () {
 
 
     const sortedArray = useMemo(() => {
-        console.log('работаем');
         if (selectedSort) {
             if (selectedSort === 'date') {
                 return [...items].sort((a, b) => a.date.valueOf() - b.date.valueOf());
@@ -68,14 +67,11 @@ const Blog = function () {
         setButtonText('')
     }
 
-    function getSortedItems() {
-        
-    }
 
-    if(items.length !== 0)
+    if (sortAndSearch.length !== 0)
     return (
         <section>
-            <h2>Свежее из нашего блога</h2>
+            <h2>{ props.sectionTitle }</h2>
             <div className="container">
                 <div className="row">
                    <Select value={selectedSort} onChange={sortItems} defValue={'Сортировать'} options={[
@@ -101,7 +97,24 @@ const Blog = function () {
         );
     return (
         <section>
-            <h2>На данный момент ничего :(</h2>
+            <h2>{props.sectionTitle}</h2>
+            <div className="container">
+                <div className="row">
+                    <Select value={selectedSort} onChange={sortItems} defValue={'Сортировать'} options={[
+                        { value: 'title', name: 'По названию' },
+                        { value: 'date', name: 'По дате' }
+                    ]} />
+                    <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
+                </div>
+                <h2>{ props.noItemsFoundText }</h2>
+            </div>
+            <form>
+                <Input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Название айтема" />
+                <Input value={body} onChange={e => setBody(e.target.value)} type="text" placeholder="Текст айтема" />
+                <Input value={addInfo} onChange={e => setAddInfo(e.target.value)} type="text" placeholder="Доп информация" />
+                <Input value={buttonText} onChange={e => setButtonText(e.target.value)} type="text" placeholder="Текст кнопки" />
+                <Btn onClick={addNewItem}>Добавить айтем</Btn>
+            </form>
         </section>
         )
 }

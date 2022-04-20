@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Btn from "../../UI/Btn/Btn";
 import logo from "../../image/logo.jpg";
+import Modal from "../../UI/Modal/Modal";
+import Input from "../../UI/Input/Input";
+import { useState } from "react";
 
 const Header = styled.header`
     display: flex;
@@ -27,17 +30,22 @@ const HeaderRight = styled.div`
 
 
 const MyHeader = () => {
+    const [modal, setModal] = useState(false);
     return (
         <Header className="header dark">
+            <Modal id="regModal" display={modal} setDisplay={setModal}>
+                <Input placeholder="Введите логин" />
+                <Input placeholder="Введите пароль" />
+                <Btn onClick={() => setModal(false)}>Войти</Btn>
+            </Modal>
+
             <LogoBlock>
                 <img src={logo} alt="logo" />
             </LogoBlock>
             <HeaderRight>
                 <div className="row">
-                    <Btn>Войти</Btn>
-                    <Btn>Регистрация</Btn>
+                    <Btn onClick={() => setModal(true)}>Войти</Btn>
                 </div>
-
             </HeaderRight>
         </Header>
     );
