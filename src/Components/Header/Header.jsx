@@ -32,17 +32,47 @@ const HeaderRight = styled.div`
 
 const MyHeader = () => {
     const [modal, setModal] = useState(false);
-    const dispatch = useDispatch();
     const isAuth = useSelector(state => state.auth.auth);
+    const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
+    const [userPassword, setUserPassword] = useState('test123123');
+
+
     const authorize = () => {
-        dispatch({ type: "auth", payload: true })
+
+        console.log(userLogin, userPassword);
+        const url = "https://api.englishpatient.org/login"
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json")
+
+        var raw = JSON.stringify({
+                "email": userLogin,
+                "password": userPassword
+            })
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+        console.log(requestOptions)
+
     }
+
+    /*
+         */
+
     if (isAuth === false) {
         return (
             <Header className="header dark">
                 <Modal id="regModal" display={modal} setDisplay={setModal}>
-                    <Input placeholder="Введите логин" />
-                    <Input placeholder="Введите пароль" />
+                    <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
+                    <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
                     <Btn onClick={
                         () => authorize()
                     }>Войти</Btn>

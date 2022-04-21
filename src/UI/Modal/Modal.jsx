@@ -38,9 +38,9 @@ function Modal({ children, display, setDisplay, ...props }) {
         opened = true;
     }
     const closeModal = () => {
-        if (display & (opened == true)) {
+        if (display & (opened === true)) {
             let modalToClose = document.getElementById(props.id);
-            if (modalToClose.className.substring(modalToClose.className.length - 7) === ' active') {
+            if (modalToClose.className.substring(modalToClose.className.length - 7) === ' active_') {
                 modalToClose.className = modalToClose.className.substring(0, modalToClose.className.length - 7);
                 setDisplay(false);
             }

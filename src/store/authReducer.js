@@ -1,12 +1,13 @@
 
 const defaultState = {
-    auth: false
+    auth: false,
+    name: ''
 }
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "auth":
             return { ...state, auth: action.payload }
-        case "unAuth":
+        case "name":
             return { ...state, auth: action.payload }
         default:
             return state;
