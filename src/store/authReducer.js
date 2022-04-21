@@ -8,7 +8,9 @@ export const authReducer = (state = defaultState, action) => {
         case "auth":
             return { ...state, auth: action.payload }
         case "name":
-            return { ...state, auth: action.payload }
+            return { ...state, name: action.payload }
+        case "token":
+            return {...state, token: action.payload }
         default:
             return state;
     }

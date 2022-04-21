@@ -35,11 +35,11 @@ const MyHeader = () => {
     const isAuth = useSelector(state => state.auth.auth);
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
+    const dispatch = useDispatch();
 
 
     const authorize = () => {
 
-        console.log(userLogin, userPassword);
         const url = "https://api.englishpatient.org/login"
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json")
@@ -56,21 +56,21 @@ const MyHeader = () => {
         };
 
         fetch(url, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
+            .then(response => response.json())
+            .then(result => dispatch({ type: 'token', payload: result.token }))
             .catch(error => console.log('error', error));
 
-        console.log(requestOptions)
+        dispatch({ type: 'name', payload: userLogin });
 
+        setModal(false);
     }
 
-    /*
-         */
+
 
     if (isAuth === false) {
         return (
             <Header className="header dark">
-                <Modal id="regModal" display={modal} setDisplay={setModal}>
+                <Modal display={modal} setDisplay={setModal}>
                     <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
                     <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
                     <Btn onClick={
@@ -96,7 +96,7 @@ const MyHeader = () => {
                 </LogoBlock>
                 <HeaderRight>
                     <div className="row">
-                        <Btn onClick={() => console.log('111')}>Корзина</Btn>
+                        <Btn onClick={() => console.log('')}>Корзина</Btn>
                     </div>
                 </HeaderRight>
             </Header>
