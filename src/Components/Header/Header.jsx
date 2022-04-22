@@ -60,12 +60,10 @@ const MyHeader = (isAuth) => {
             .catch(error => console.log('error', error));
 
         dispatch({ type: 'name', payload: userLogin });
-
+        console.log(userLogin)
         setModal(false);
     }
 
-
-    console.log(useSelector(state => state.auth.token))
     if (!useSelector(state => state.auth.token)) {
         return (
             <Header className="header dark">
@@ -75,9 +73,6 @@ const MyHeader = (isAuth) => {
                     <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
                     <Btn onClick={
                         () => authorize()
-                    }>Войти</Btn>
-                    <Btn onClick={
-                        () => console.log(11)
                     }>Войти</Btn>
                 </Modal>
 
