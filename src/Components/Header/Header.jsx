@@ -30,9 +30,8 @@ const HeaderRight = styled.div`
 `
 
 
-const MyHeader = () => {
+const MyHeader = (isAuth) => {
     const [modal, setModal] = useState(false);
-    const isAuth = useSelector(state => state.auth.auth);
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
@@ -45,9 +44,9 @@ const MyHeader = () => {
         myHeaders.append("Content-Type", "application/json")
 
         var raw = JSON.stringify({
-                "email": userLogin,
-                "password": userPassword
-            })
+            "email": userLogin,
+            "password": userPassword
+        })
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -66,15 +65,19 @@ const MyHeader = () => {
     }
 
 
-
-    if (isAuth === false) {
+    console.log(useSelector(state => state.auth.token))
+    if (!useSelector(state => state.auth.token)) {
         return (
             <Header className="header dark">
+
                 <Modal display={modal} setDisplay={setModal}>
                     <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
                     <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
                     <Btn onClick={
                         () => authorize()
+                    }>Войти</Btn>
+                    <Btn onClick={
+                        () => console.log(11)
                     }>Войти</Btn>
                 </Modal>
 
@@ -83,25 +86,26 @@ const MyHeader = () => {
                 </LogoBlock>
                 <HeaderRight>
                     <div className="row">
-                        <Btn onClick={() => setModal(true)}>Войти</Btn>
+                            <Btn onClick={() => setModal(true)}>Войти</Btn>
                     </div>
                 </HeaderRight>
             </Header>
+
         );
     }
-        return (
-            <Header className="header dark">
-                <LogoBlock>
-                    <img src={logo} alt="logo" />
-                </LogoBlock>
-                <HeaderRight>
-                    <div className="row">
-                        <Btn onClick={() => console.log('')}>Корзина</Btn>
-                    </div>
-                </HeaderRight>
-            </Header>
-        );
-            
+    return (
+        <Header className="header dark">
+
+            <LogoBlock>
+                <img src={logo} alt="logo" />
+            </LogoBlock>
+            <HeaderRight>
+                <div className="row">
+                        <Btn>Корзина</Btn>
+                </div>
+            </HeaderRight>
+        </Header>
+    )
 };
 
 export default MyHeader;

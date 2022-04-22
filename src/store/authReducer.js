@@ -1,7 +1,8 @@
 
 const defaultState = {
     auth: false,
-    name: ''
+    name: '',
+    token: ''
 }
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {

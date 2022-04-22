@@ -7,6 +7,7 @@ import './style/style.css';
 import Blog from "./Components/Blog/Blog";
 import Feedback from "./Components/Feedback/Feedback";
 import Footer from "./Components/Footer/Footer";
+import {useSelector} from "react-redux"
 
 const MyDiv = styled.div`
   font-size: 14px;
@@ -43,11 +44,16 @@ const MyDiv = styled.div`
   }
 `
 
+
+
 const theme = {
   main: "#141414",
   sec: "white",
 }
 function App() {
+
+    var isAuth = useSelector(state => state.auth.auth);
+
   return (
     <ThemeProvider theme={theme}>
       <MyDiv className="App">
