@@ -23,7 +23,7 @@ const Banner = () => {
                         </h1>
                         <h2>
                          50 млн лет на рынке птицестроения
-                        </h2>
+                    </h2>
                     </div>
                 </BannerBg>
             </BannerBg>

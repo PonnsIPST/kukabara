@@ -73,7 +73,8 @@ const ItemsList = function (props) {
                     <div className="row">
                         <Select value={selectedSort} onChange={sortItems} defValue={'Сортировать'} options={[
                             { value: 'title', name: 'По названию' },
-                            { value: 'date', name: 'По дате' }
+                            { value: 'date', name: 'По дате' },
+                            { value: 'price', name: 'По цене' }
                         ]} />
                         <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
                     </div>

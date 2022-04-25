@@ -8,9 +8,6 @@ import Footer from "./Components/Footer/Footer";
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import Busket from "./Components/Busket/Busket";
-import "./style/style.css";
-import Btn from "./UI/Btn/Btn"
-import { fetchUsers } from "./asyncAction/users";
 
 const MyDiv = styled.div`
   font-size: 14px;
@@ -53,7 +50,7 @@ const theme = {
     main: "#141414",
     sec: "white",
 }
-function App() {
+function Pages() {
     const dispatch = useDispatch();
     var isAuth = useSelector(state => state.auth.token);
     isAuth ? isAuth = true : isAuth = false;
@@ -81,13 +78,11 @@ function App() {
         { id: 18, title: 'Post wia button', body: 'Post wia button text', addInfo: 'Buy kukabara', buttonText: '12 000', date: new Date('December 17, 2000 03:24:00') }
     ]);
 
-
     return (
         <ThemeProvider theme={theme}>
-            <MyDiv className="Main">
+            <MyDiv className="App">
                 <MyHeader />
                 <Banner />
-                <Btn onClick={() => { fetchUsers(); console.log(fetchUsers()) }}>Test load users from server</Btn>
                 <ItemsList items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' />
                 <ItemsList items={goods} setItems={setGoods} noItemsFoundText="No goods found" sectionTitle='Our Best goods' />
                 <Busket />
@@ -97,4 +92,4 @@ function App() {
     );
 }
 
-export default App;
+export default Pages;
