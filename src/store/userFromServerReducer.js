@@ -1,4 +1,6 @@
-const defaultState = [];
+const defaultState = {
+    users: []
+};
 
 const ADD_MANY_USERS = 'ADD_MANY_USERS';
 

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Busket from "./Components/Busket/Busket";
 import "./style/style.css";
 import Btn from "./UI/Btn/Btn"
-import { fetchUsers } from "./asyncAction/users";
+import { addManyUsers } from "./store/userFromServerReducer";
 
 const MyDiv = styled.div`
   font-size: 14px;
@@ -81,13 +81,18 @@ function App() {
         { id: 18, title: 'Post wia button', body: 'Post wia button text', addInfo: 'Buy kukabara', buttonText: '12 000', date: new Date('December 17, 2000 03:24:00') }
     ]);
 
+    const fetchUsers = () => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(json => dispatch(addManyUsers(json)))
+    }
 
     return (
         <ThemeProvider theme={theme}>
             <MyDiv className="Main">
                 <MyHeader />
                 <Banner />
-                <Btn onClick={() => { fetchUsers(); console.log(fetchUsers()) }}>Test load users from server</Btn>
+                <Btn style={{width: '100%', height: '90px'}} onClick={() => fetchUsers()}>Test load users from server</Btn>
                 <ItemsList items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' />
                 <ItemsList items={goods} setItems={setGoods} noItemsFoundText="No goods found" sectionTitle='Our Best goods' />
                 <Busket />
