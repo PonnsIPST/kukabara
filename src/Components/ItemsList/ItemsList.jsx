@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const ItemsList = function (props) {
 
-    const isAuth = (useSelector(state => state.auth.token));
+    const userHasToken = (useSelector(state => state.auth.token));
 
     const items = props.items;
     const setItems = props.setItems;
@@ -35,6 +35,9 @@ const ItemsList = function (props) {
         if (selectedSort) {
             if (selectedSort === 'date') {
                 return [...items].sort((a, b) => a.date.valueOf() - b.date.valueOf());
+            }
+            if (selectedSort === 'price') {
+                return [...items].sort((a, b) => parseInt(a.buttonText) - parseInt(b.buttonText));
             }
             return [...items].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
         }
@@ -65,17 +68,13 @@ const ItemsList = function (props) {
         setButtonText('')
     }
 
-    if (isAuth) {
+    if (userHasToken) {
         return (
             <section>
                 <h2>{props.sectionTitle}</h2>
                 <div className="container">
                     <div className="row">
-                        <Select value={selectedSort} onChange={sortItems} defValue={'Сортировать'} options={[
-                            { value: 'title', name: 'По названию' },
-                            { value: 'date', name: 'По дате' },
-                            { value: 'price', name: 'По цене' }
-                        ]} />
+                        <Select value={selectedSort} onChange={sortItems} defValue={'Sort'} options={props.options} />
                         <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
                     </div>
                     {sortAndSearch.length !== 0 ?
@@ -90,7 +89,7 @@ const ItemsList = function (props) {
                     }
                 </div>
 
-                {isAuth
+                {userHasToken
                     ?
                     <form>
                         <Input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Название айтема" />
@@ -110,10 +109,7 @@ const ItemsList = function (props) {
             <h2>{props.sectionTitle}</h2>
             <div className="container">
                 <div className="row">
-                    <Select value={selectedSort} onChange={sortItems} defValue={'Сортировать'} options={[
-                        { value: 'title', name: 'По названию' },
-                        { value: 'date', name: 'По дате' }
-                    ]} />
+                    <Select value={selectedSort} onChange={sortItems} defValue={'Sort'} options={props.options} />
                     <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
                 </div>
                 {sortAndSearch.length !== 0 ?

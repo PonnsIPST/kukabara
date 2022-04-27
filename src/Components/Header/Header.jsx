@@ -6,6 +6,7 @@ import Modal from "../../UI/Modal/Modal";
 import Input from "../../UI/Input/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserToken } from "../../Async/authorize";
 
 const Header = styled.header`
     display: flex;
@@ -30,77 +31,52 @@ const HeaderRight = styled.div`
 `
 
 
-const MyHeader = (isAuth) => {
+const MyHeader = () => {
+    var userHasToken = useSelector(state => state.auth.token);
     const [modal, setModal] = useState(false);
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
 
-
-    const authorize = () => {
-
-        const url = "https://api.englishpatient.org/login"
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json")
-
-        var raw = JSON.stringify({
-            "email": userLogin,
-            "password": userPassword
-        })
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch(url, requestOptions)
-            .then(response => response.json())
-            .then(result => dispatch({ type: 'token', payload: result.token }))
-            .catch(error => console.log('error', error));
-
-        dispatch({ type: 'name', payload: userLogin });
-        console.log(userLogin)
-        setModal(false);
-    }
-
-    if (!useSelector(state => state.auth.token)) {
-        return (
+    if (userHasToken !== "") {
+        dispatch({ type: 'auth', payload: true });
+            return (
             <Header className="header dark">
-
-                <Modal display={modal} setDisplay={setModal}>
-                    <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
-                    <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
-                    <Btn onClick={
-                        () => authorize()
-                    }>Войти</Btn>
-                </Modal>
 
                 <LogoBlock>
                     <img src={logo} alt="logo" />
                 </LogoBlock>
                 <HeaderRight>
                     <div className="row">
-                            <Btn onClick={() => setModal(true)}>Войти</Btn>
+                        <Btn>Корзина</Btn>
                     </div>
                 </HeaderRight>
             </Header>
-
+        
         );
     }
     return (
         <Header className="header dark">
+
+            <Modal display={modal} setDisplay={setModal}>
+                <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
+                <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
+                <Btn onClick={
+                    () => dispatch(getUserToken(userLogin, userPassword))
+                }>Войти</Btn>
+            </Modal>
 
             <LogoBlock>
                 <img src={logo} alt="logo" />
             </LogoBlock>
             <HeaderRight>
                 <div className="row">
-                        <Btn>Корзина</Btn>
+                    <Btn onClick={() => setModal(true)}>Войти</Btn>
                 </div>
             </HeaderRight>
         </Header>
-    )
+    );
+    
 };
 
 export default MyHeader;

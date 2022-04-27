@@ -14,9 +14,8 @@ const ItemInRow = styled.div`
     border: 2px solid #141414;
     border-radius: 5px;
     margin-top: 30px;
-    & ~ &{
-        margin-left: 15px;
-    }
+    margin-left: 15px;
+    margin-right: 15px;
 `
 
 

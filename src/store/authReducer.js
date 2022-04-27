@@ -16,3 +16,5 @@ export const authReducer = (state = defaultState, action) => {
             return state;
     }
 }
+
+export const userToken = (payload) => ({ type: 'token', payload })
