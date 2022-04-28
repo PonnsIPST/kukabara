@@ -11,6 +11,7 @@ import Busket from "../Components/Busket/Busket";
 import "../style/style.css";
 import { addManyUsers } from "../store/userFromServerReducer";
 import Btn from "../UI/Btn/Btn";
+import { fetchUsers } from "../Async/users";
 
 
 const MyDiv = styled.div`
@@ -81,18 +82,12 @@ function Main() {
         { id: 18, title: 'Post wia button', body: 'Post wia button text', addInfo: 'Buy kukabara', buttonText: '12000 r', date: new Date('December 17, 2000 03:24:00') }
     ]);
 
-    const fetchUsers = () => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(json => dispatch(addManyUsers(json)))
-    }
-
     return (
         <ThemeProvider theme={theme}>
             <MyDiv className="Main">
                 <MyHeader />
                 <Banner />
-                <Btn style={{ width: '100%', height: '90px' }} onClick={() => fetchUsers()}>Test load users from server</Btn>
+                <Btn style={{ width: '100%', height: '90px' }} onClick={() => dispatch(fetchUsers())}>Test load users from server</Btn>
                 <ItemsList items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' options={[
                     { value: 'title', name: 'by name' },
                     { value: 'date', name: 'by date' }

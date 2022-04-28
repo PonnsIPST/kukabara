@@ -36,6 +36,7 @@ section{
     padding-bottom: 65px;
     color: #141414;
     background-color: rgb(255, 255, 255);
+    min-height: 65vh;
 }
 section h2, section h3{
     padding: 10px 0 15px 0;

@@ -5,7 +5,7 @@ import logo from "../../image/logo.jpg";
 const FooterBlock = styled.div`
     background-color: #141414;
     width: 100%;
-    height: 200px;
+    height: 20vh;
     display: flex;
 `
 const FooterContentBlock = styled.div`
