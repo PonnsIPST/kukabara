@@ -19,7 +19,6 @@ export const getUserToken = (userLogin, userPassword) => {
     return function(dispatch){
         fetch(url, requestOptions)
             .then(response => response.json())
-            .then(result => dispatch(userToken(result.token)))
-            dispatch({ type: 'name', payload: userLogin });
+            .then(result => dispatch(userToken(result.token)));
     }
 }

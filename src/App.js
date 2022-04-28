@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import BusketPage from "./Pages/BusketPage";
@@ -12,6 +12,9 @@ import {
 import Main from "./Pages/Main";
 import Shop from "./Pages/Shop";
 import Blog from "./Pages/Blog";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useMemo } from "react";
 
 export const MyDiv = styled.div`
   font-size: 14px;
@@ -58,15 +61,14 @@ export const theme = {
     sec: "white",
 }
 function App() {
-
     return (
         <Router>
             <ThemeProvider theme={theme}>
                 <Routes>
-                    <Route path="/shop" element={<Shop/>}/>
-                    <Route path="/blog" element={<Blog/>}/>
-                    <Route path="/busket" element={<BusketPage/>}/>
-                    <Route path="/" element={<Main/>}/>
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/busket" element={<BusketPage />} />
+                    <Route path="/" element={<Main />} />
                 </Routes>
             </ThemeProvider>
         </Router>

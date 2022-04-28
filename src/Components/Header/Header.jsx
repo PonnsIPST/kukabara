@@ -32,13 +32,12 @@ const HeaderRight = styled.div`
 
 
 const MyHeader = () => {
-    var userHasToken = useSelector(state => state.auth.token);
     const [modal, setModal] = useState(false);
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
 
-    if (userHasToken !== "") {
+    if (1 == 2) {
         dispatch({ type: 'auth', payload: true });
             return (
             <Header className="header dark">
