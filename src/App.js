@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import BusketPage from "./Pages/BusketPage";
@@ -6,16 +6,15 @@ import "./style/style.css";
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import Main from "./Pages/Main";
 import Shop from "./Pages/Shop";
 import Blog from "./Pages/Blog";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useMemo } from "react";
-
+import Users from "./Pages/Users";
+import MyHeader from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer";
+import { useSelector } from "react-redux"
 export const MyDiv = styled.div`
   font-size: 14px;
   color: #141414;
@@ -49,10 +48,17 @@ export const MyDiv = styled.div`
     padding: 10px 30px 10px 30px;
     border-radius: 5px;
   }
+  & a.button{
+    transition: .2s ease;
+    height: 50px;
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+  }
   & button ~ button{
     margin-left: 20px;
   }
 `
+
 
 
 
@@ -61,15 +67,32 @@ export const theme = {
     sec: "white",
 }
 function App() {
+    const userHasToken = (useSelector(state => state.auth.token));
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <Routes>
-                    <Route path="/shop" element={<Shop />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/busket" element={<BusketPage />} />
-                    <Route path="/" element={<Main />} />
-                </Routes>
+                <MyDiv>
+                    <MyHeader/>
+                        <Routes>
+                            <Route path="/shop" element={<Shop />} />
+                            <Route path="/blog" element={<Blog />} />
+                            <Route path="/busket" element={<BusketPage />} />
+                            {userHasToken ?
+                                <Route path="/users" element={<Users />} />
+                                : ""
+                            }
+                            <Route
+                                path="*"
+                            element={
+                                <div style={{ minHeight: `65vh`, display: `flex`, alignItems: `center`, justifyContent: `center` }}>
+                                        <h2>You are trying to move to a non-existent page or you don't have rights to observe it. I am really sorry.</h2>
+                                    </div>
+                                }
+                            />
+                            <Route index element={<Main />} />
+                        </Routes>
+                    <Footer/>
+                </MyDiv>
             </ThemeProvider>
         </Router>
     );

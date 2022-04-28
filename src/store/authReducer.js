@@ -1,7 +1,7 @@
 
 const defaultState = {
     auth: false,
-    name: '',
+    name: 'Guest',
     token: ''
 }
 export const authReducer = (state = defaultState, action) => {

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Btn from "../../UI/Btn/Btn";
+import { useState } from "react";
+import Modal from "../../UI/Modal/Modal";
 
 const BusketDiv = styled.div`
     display: flex;
@@ -20,15 +22,13 @@ const BusketDiv = styled.div`
 const Busket = () => {
     const busket = useSelector(state => state.busket.goodsInBusket);
     const dispatch = useDispatch();
-    let busketSum = useSelector(state => state.busket.price);
-    
-    const removeGood = (good) => {
-        dispatch({ type: 'goodsInBusket', payload: good.id })
-    }
+
+    const [modal, setModal] = useState(false);
+
     const removeAll = () => {
         dispatch({ type: 'clear' });
     }
-    if (busket) {
+    if (busket.length > 0) {
         return (
             <section>
                 <BusketDiv>
@@ -41,13 +41,19 @@ const Busket = () => {
                     )}
                     
                     <Btn onClick={() => removeAll()}>Clear</Btn>
+                    <Btn className="nomargin button" onClick={() => setModal(true)}>Buy $$$</Btn>
                 </BusketDiv>
+
+
+                <Modal display={modal} setDisplay={setModal}>
+                    <h3>Unfortunately, that functionality is still unavailible</h3>
+                </Modal>
             </section>
         )
     }
     return (
         <section>
-            <h1>U'r busket is empty</h1>
+            <h1>U'r busket is empty :(</h1>
         </section>
         )
 }

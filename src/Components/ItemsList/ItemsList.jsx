@@ -75,7 +75,7 @@ const ItemsList = function (props) {
                 <div className="container">
                     <div className="row">
                         <Select value={selectedSort} onChange={sortItems} defValue={'Sort'} options={props.options} />
-                        <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
+                        <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search" />
                     </div>
                     {sortAndSearch.length !== 0 ?
                         <div className="row">
@@ -96,7 +96,7 @@ const ItemsList = function (props) {
                         <Input value={body} onChange={e => setBody(e.target.value)} type="text" placeholder="Текст айтема" />
                         <Input value={addInfo} onChange={e => setAddInfo(e.target.value)} type="text" placeholder="Доп информация" />
                         <Input value={buttonText} onChange={e => setButtonText(e.target.value)} type="text" placeholder="Текст кнопки" />
-                        <Btn onClick={addNewItem}>Добавить айтем</Btn>
+                        <Btn onClick={addNewItem}>New Item</Btn>
                     </form>
                     :
                     <div></div>

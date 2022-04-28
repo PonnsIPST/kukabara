@@ -39,7 +39,7 @@ const Item = function (props) {
                 <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.date.toLocaleString("ru", options)}</span>
                 <p style={{ marginBottom: `30px` }}>{props.item.body}</p>
                 <p style={{ marginBottom: `30px` }}>{props.item.addInfo}</p>
-                {isAuth ? <Btn onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div> }
+                {isAuth ? <Btn className="nomargin" onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div> }
             </ItemInRow>
         )
     }
@@ -50,7 +50,7 @@ const Item = function (props) {
             <p style={{ marginBottom: `30px` }}>{props.item.body}</p>
             <p style={{ marginBottom: `30px` }}>{props.item.addInfo}</p>
             <Btn onClick={() => toBusket(props.item)}>{props.item.buttonText}</Btn>
-            {isAuth ? <Btn onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div>}
+            {isAuth ? <Btn className="nomargin button" onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div>}
         </ItemInRow>
     )
    }

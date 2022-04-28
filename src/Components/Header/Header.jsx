@@ -7,6 +7,8 @@ import Input from "../../UI/Input/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserToken } from "../../Async/authorize";
+import { Link } from "react-router-dom";
+import Navbar from "../../UI/Navbar/Navbar";
 
 const Header = styled.header`
     display: flex;
@@ -17,17 +19,24 @@ const Header = styled.header`
     top: 0;
     left: 0;
     background-color: ${props => props.theme.main};
+    @media(max-width: 767px){
+        height: 20vh;
+    }
 `
 const LogoBlock = styled.div`
     display: flex;
     justify-content: start;
     width: 30%;
+    @media(max-width: 767px){
+        display: none;
+    }
 `
 const HeaderRight = styled.div`
     display: flex;
     justify-content: start;
     width: 70%;
-    flex-direction: ;
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 
 
@@ -36,21 +45,26 @@ const MyHeader = () => {
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
+    const quit = () => {
+        dispatch({ type: 'token', payload: '' });
+        dispatch({ type: 'name', payload: 'Guest' });
+    }
 
-    if (1 == 2) {
-        dispatch({ type: 'auth', payload: true });
+    if (useSelector(state => state.auth.token) !== "") {
             return (
-            <Header className="header dark">
+              <Header className="header dark">
 
                 <LogoBlock>
                     <img src={logo} alt="logo" />
                 </LogoBlock>
-                <HeaderRight>
-                    <div className="row">
-                        <Btn>Корзина</Btn>
-                    </div>
+                    <HeaderRight>
+                        <div className="row" style={{ flexWrap: `wrap` }}>
+                            <Link className="button" to="/busket">Your Busket</Link>
+                            <Btn onClick={() => quit()}>Logout</Btn>
+                        </div>
                 </HeaderRight>
-            </Header>
+                <Navbar/>
+              </Header>
         
         );
     }
@@ -58,8 +72,8 @@ const MyHeader = () => {
         <Header className="header dark">
 
             <Modal display={modal} setDisplay={setModal}>
-                <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Введите логин" />
-                <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Введите пароль" />
+                <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Enter u'r login" />
+                <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Enter u'r pass" />
                 <Btn onClick={
                     () => dispatch(getUserToken(userLogin, userPassword))
                 }>Войти</Btn>
@@ -69,10 +83,12 @@ const MyHeader = () => {
                 <img src={logo} alt="logo" />
             </LogoBlock>
             <HeaderRight>
-                <div className="row">
-                    <Btn onClick={() => setModal(true)}>Войти</Btn>
+                <div className="row" style={{ flexWrap: `wrap` }}>
+                    <Link className="button" to="/busket">Your Busket</Link>
+                    <Btn onClick={() => setModal(true)}>Login</Btn>
                 </div>
             </HeaderRight>
+            <Navbar />
         </Header>
     );
     

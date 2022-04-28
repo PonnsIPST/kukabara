@@ -17,11 +17,16 @@ const FooterInfoBlock = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
+    & h2, & h3{
+        text-align: right;
+        margin-right: 30px;
+    }
 `
 const FooterContent = () => {
     return(
-             <FooterContentBlock>
-                  <img src={logo} alt="logo"/>
+        <FooterContentBlock>
+            <img style={{ maxHeight: `150px`, maxWidth: `200px` }} src={logo} alt="logo" />
                   <FooterInfoBlock>
                       <h2>Компания КУКАБАРА</h2>
                       <h3>Телефон: 8 800 900 99 88</h3>

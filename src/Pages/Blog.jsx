@@ -1,11 +1,7 @@
 import React from "react";
-import MyHeader from "../Components/Header/Header";
-import { ThemeProvider } from "styled-components";
 import ItemsList from "../Components/ItemsList/ItemsList";
-import Footer from "../Components/Footer/Footer";
 import { useState } from "react"
 import "../style/style.css";
-import { MyDiv, theme } from "../App";
 
 
 function Blog() {
@@ -23,16 +19,10 @@ function Blog() {
     ]);
 
     return (
-        <ThemeProvider theme={theme}>
-            <MyDiv className="Main">
-                <MyHeader />
                 <ItemsList items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' options={[
                     { value: 'title', name: 'by name' },
                     { value: 'date', name: 'by date' }
                 ]} />
-                <Footer />
-            </MyDiv>
-        </ThemeProvider>
     );
 }
 

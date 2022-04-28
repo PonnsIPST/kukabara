@@ -14,11 +14,19 @@ export const getUserToken = (userLogin, userPassword) => {
         method: 'POST',
         headers: myHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: 'follow',
     };
     return function(dispatch){
         fetch(url, requestOptions)
             .then(response => response.json())
             .then(result => dispatch(userToken(result.token)));
+
+        fetch(url, requestOptions)
+            .then(response => {
+                if (response.ok) {
+                    dispatch({ type: 'name', payload: userLogin });
+                    dispatch({ type: 'auth', payload: true });
+                }
+            })
     }
 }
