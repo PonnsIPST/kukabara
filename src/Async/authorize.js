@@ -22,11 +22,13 @@ export const getUserToken = (userLogin, userPassword) => {
             .then(result => dispatch(userToken(result.token)));
 
         fetch(url, requestOptions)
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.json())
+            .then(result => {
+                if (result.token) {
                     dispatch({ type: 'name', payload: userLogin });
                     dispatch({ type: 'auth', payload: true });
                 }
+                else alert('Error! Try again.')
             })
     }
 }

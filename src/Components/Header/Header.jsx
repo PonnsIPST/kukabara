@@ -46,6 +46,7 @@ const MyHeader = () => {
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
+    var isAuth = useSelector(state => state.auth.auth);
 
     var busket = useSelector(state => state.busket.goodsInBusket);
     var busketCount = 0;
@@ -54,9 +55,10 @@ const MyHeader = () => {
     const quit = () => {
         dispatch({ type: 'token', payload: '' });
         dispatch({ type: 'name', payload: 'Guest' });
+        dispatch({ type: 'auth', payload: false });
     }
 
-    if (useSelector(state => state.auth.token) !== "") {
+    if (isAuth) {
             return (
               <Header className="header dark">
 
@@ -66,7 +68,7 @@ const MyHeader = () => {
                     <HeaderRight>
                         <div className="row" style={{ flexWrap: `wrap` }}>
                             <Link className="button" to="/busket">Your Busket<p className="busketCount">{busketCount}</p></Link>
-                            <Btn onClick={() => quit()}>Logout</Btn>
+                            <Btn className="quitButton button" onClick={() => quit()}>Logout</Btn>
                         </div>
                 </HeaderRight>
                 <Navbar/>
@@ -82,7 +84,7 @@ const MyHeader = () => {
                 <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Enter u'r pass" />
                 <Btn onClick={
                     () => dispatch(getUserToken(userLogin, userPassword))
-                }>Войти</Btn>
+                }>Login</Btn>
             </Modal>
 
             <LogoBlock>
