@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src",
-    "\\src\\Async",
-    "\\src\\Components\\Item",
-    "\\src\\Components\\ItemsList",
-    "\\src\\Pages",
+    "\\src\\Components",
+    "\\src\\Components\\Banner",
+    "\\src\\Components\\Busket",
+    "\\src\\Components\\Header",
+    "\\src\\store",
     "\\src\\UI",
-    "\\src\\UI\\Modal",
-    "\\src\\UI\\Select",
-    "\\src\\Utility"
+    "\\src\\UI\\Navbar"
   ],
-  "SelectedNode": "\\src\\store\\authReducer.js",
+  "SelectedNode": "\\src\\Async\\users.js",
   "PreviewInSolutionExplorer": false
 }

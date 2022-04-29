@@ -35,13 +35,13 @@ const Busket = () => {
             <section>
                 <BusketDiv>
                     {busket.map((good) =>
-                        <div key={good.id}>
-                            <h3>{good.index}</h3>
-                            <h3>{good.title}</h3>
-                            <h3>{good.buttonText}</h3>
+                        <div style={{ padding: `0 15px 10px 15px`, display: `flex`, flexDirection: `row`, justifyContent: `space-between` }} key={good.id}>
+                            <h3>{good.id}</h3>
+                            <div style={{ width: `50%`, border: `none` }}><h3 style={{ textAlign: `center` }}>{good.title}</h3></div>
+                            <div style={{ width: `15%`, border: `none`}}><h3>{good.buttonText}</h3></div>
                         </div>
                     )}
-                    <div><h2>Sum: {price} rur</h2></div>
+                    <div style={{ width: `100%`, border: `none` }}><h2 style={{ textAlign: `right` }}>Sum: {price} rur</h2></div>
                     <Btn onClick={() => removeAll()}>Clear</Btn>
                     <Btn className="nomargin button" onClick={() => setModal(true)}>Buy $$$</Btn>
                 </BusketDiv>
