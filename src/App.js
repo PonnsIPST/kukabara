@@ -82,8 +82,8 @@ function App() {
                                 : ""
                             }
                             <Route
-                                path="*"
-                            element={
+                                path="/*"
+                                element={
                                 <div style={{ minHeight: `65vh`, display: `flex`, alignItems: `center`, justifyContent: `center` }}>
                                         <h2>You are trying to move to a non-existent page or you don't have rights to observe it. I am really sorry.</h2>
                                     </div>

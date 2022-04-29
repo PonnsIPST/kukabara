@@ -127,8 +127,14 @@ section:nth-child(even){
     }
     .container {
         display: flex;
-        flex-basis: 100%px;
+        flex-basis: 100%;
         flex-grow: 0;
         flex-direction: column;
+    }
+}
+
+@media(max-width: 409px) {
+    header button, header a.button {
+        margin-left: 0 !important;
     }
 }
