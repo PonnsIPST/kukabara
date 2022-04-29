@@ -18,6 +18,7 @@ const Header = styled.header`
     height: 15vh;
     top: 0;
     left: 0;
+    z-index: 99999;
     background-color: ${props => props.theme.main};
     @media(max-width: 767px){
         height: 20vh;
@@ -45,6 +46,11 @@ const MyHeader = () => {
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
+
+    var busket = useSelector(state => state.busket.goodsInBusket);
+    var busketCount = 0;
+    busket.map(busketItem => busketCount++);
+
     const quit = () => {
         dispatch({ type: 'token', payload: '' });
         dispatch({ type: 'name', payload: 'Guest' });
@@ -59,7 +65,7 @@ const MyHeader = () => {
                 </LogoBlock>
                     <HeaderRight>
                         <div className="row" style={{ flexWrap: `wrap` }}>
-                            <Link className="button" to="/busket">Your Busket</Link>
+                            <Link className="button" to="/busket">Your Busket<p className="busketCount">{busketCount}</p></Link>
                             <Btn onClick={() => quit()}>Logout</Btn>
                         </div>
                 </HeaderRight>
@@ -84,7 +90,7 @@ const MyHeader = () => {
             </LogoBlock>
             <HeaderRight>
                 <div className="row" style={{ flexWrap: `wrap` }}>
-                    <Link className="button" to="/busket">Your Busket</Link>
+                    <Link className="button busketButton" to="/busket">Your Busket<p className="busketCount">{busketCount}</p></Link>
                     <Btn onClick={() => setModal(true)}>Login</Btn>
                 </div>
             </HeaderRight>

@@ -29,7 +29,7 @@ const Item = function (props) {
     const dispatch = useDispatch();
     const toBusket = () => {
         dispatch({ type: 'toBusket', payload: props.item });
-        dispatch({ type: 'price', payload: props.buttonText });
+        dispatch({ type: 'increasePrice', payload: parseInt(props.item.buttonText, 10) });
     }
     const isAuth = (useSelector(state => state.auth.token));
     if (!props.item.buttonText) {
@@ -39,7 +39,7 @@ const Item = function (props) {
                 <span style={{ fontSize: `15px`, marginBottom: `15px`, display: `inline-block` }}>{props.item.date.toLocaleString("ru", options)}</span>
                 <p style={{ marginBottom: `30px` }}>{props.item.body}</p>
                 <p style={{ marginBottom: `30px` }}>{props.item.addInfo}</p>
-                {isAuth ? <Btn className="nomargin" onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div> }
+                {isAuth ? <Btn className="nomargin button" onClick={() => props.remove(props.item)}>Delete item</Btn> : <div></div> }
             </ItemInRow>
         )
     }

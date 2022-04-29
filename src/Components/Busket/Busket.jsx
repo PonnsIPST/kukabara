@@ -21,12 +21,14 @@ const BusketDiv = styled.div`
 
 const Busket = () => {
     const busket = useSelector(state => state.busket.goodsInBusket);
+    const price = useSelector(state => state.busket.price);
     const dispatch = useDispatch();
 
     const [modal, setModal] = useState(false);
 
     const removeAll = () => {
         dispatch({ type: 'clear' });
+        dispatch({type: 'noPrice'})
     }
     if (busket.length > 0) {
         return (
@@ -39,7 +41,7 @@ const Busket = () => {
                             <h3>{good.buttonText}</h3>
                         </div>
                     )}
-                    
+                    <div><h2>Sum: {price} rur</h2></div>
                     <Btn onClick={() => removeAll()}>Clear</Btn>
                     <Btn className="nomargin button" onClick={() => setModal(true)}>Buy $$$</Btn>
                 </BusketDiv>

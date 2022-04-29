@@ -19,7 +19,7 @@ const FooterInfoBlock = styled.div`
     flex-direction: column;
     width: 100%;
     & h2, & h3{
-        text-align: right;
+        text-align: right!important;
         margin-right: 30px;
     }
 `

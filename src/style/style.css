@@ -50,6 +50,15 @@ button, a.button {
     display: inline-block;
     text-decoration: none;
     max-width: 200px;
+    position: relative;
+}
+.button.busketButton{
+    padding-right: 60px;
+}
+.busketCount{
+    position: absolute;
+    right: 7px;
+    top: 7px;
 }
 .nomargin{
     margin-left: 0!important;
