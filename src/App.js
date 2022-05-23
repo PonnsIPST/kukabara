@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import BusketPage from "./pages/BusketPage";
@@ -167,6 +167,8 @@ export const MyDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  overflow: hidden;
   & h1{
     font-size: 60px;
     font-weight: bold;

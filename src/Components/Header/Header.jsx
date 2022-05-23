@@ -10,6 +10,7 @@ import Input from "../../ui/Input/Input";
 import Navbar from "../../ui/Navbar/Navbar";
 import axios from "axios";
 import { userAuth, userName, userToken } from "../../store/authReducer";
+import { Loader } from "../../ui/Loader/Loader";
 
 const Header = styled.header`
     display: flex;
@@ -50,6 +51,7 @@ const MyHeader = (props) => {
     var busket = useSelector(state => state.busket.goodsInBusket);
     var busketCount = 0;
     busket.map(busketItem => busketCount++);
+    const [isLoading, setIsLoading] = useState(false);
 
     const quit = () => {
         dispatch(userToken(''));
@@ -57,8 +59,9 @@ const MyHeader = (props) => {
         dispatch(userAuth(false));
     }
     const handleAuth = async (userLogin, userPassword) => {
-        if(userLogin !== "" && userPassword !== "")
+        if(userLogin !== "" && userPassword !== ""){
             try{
+                setIsLoading(true);
                 const response = await axios.post('https://api.englishpatient.org/login', JSON.stringify(
                     {
                         "email": userLogin,
@@ -71,6 +74,7 @@ const MyHeader = (props) => {
                         }
                     }
                 );
+                setIsLoading(false);
 
                 if(typeof response.data.token !== 'undefined'){
                     dispatch(userToken(response?.data?.token));
@@ -83,13 +87,15 @@ const MyHeader = (props) => {
             } catch (err) {
                 console.log(err)
             }
-        else{
+        }else{
             alert('Заполнены не все нобходимые поля');
         }
     }
 
             return (
               <Header className="header dark">
+                {isLoading === true ? <Loader/> : ""}
+                {console.log(isLoading)}
                 {isAuth ? "" :
                     <Modal display={modal} setDisplay={setModal}>
                         <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Enter u'r login" />

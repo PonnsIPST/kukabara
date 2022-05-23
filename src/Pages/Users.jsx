@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../async/users";
 import Btn from "../ui/Btn/Btn";
+import { Loader } from "../ui/Loader/Loader";
 
 function Users(props) {
     var dispatch = useDispatch()
     var allUsers = useSelector(state => state.userServer.users);
     return (
         <div>
-            <Btn onClick={() => dispatch(fetchUsers())}>Download users</Btn>
+            <Btn onClick={() => {
+                dispatch(fetchUsers());
+                }
+            }>Download users</Btn>
             <div style={{ display: `flex`, flexDirection: `row`, flexWrap: `wrap`, width: `80%`, marginLeft: `10%`, minHeight: `65vh`, alignContent: `center` }}>
                 {allUsers.map((user) => {
                         return(

@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\Components",
+    "\\src\\Components\\Banner",
+    "\\src\\Components\\Busket",
+    "\\src\\Components\\Header",
+    "\\src\\store",
+    "\\src\\UI",
+    "\\src\\UI\\Navbar"
+  ],
+  "SelectedNode": "\\src\\store\\index.js",
+  "PreviewInSolutionExplorer": false
+}
