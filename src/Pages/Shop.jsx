@@ -1,10 +1,9 @@
 import React from "react";
-import ItemsList from "../Components/ItemsList/ItemsList";
+import ItemsList from "../components/ItemsList/ItemsList";
 import { useState } from "react"
-import "../style/style.css";
 
 
-function Shop() {
+function Shop(props) {
 
     const [goods, setGoods] = useState([
         { id: 10, title: 'Little kukabara', body: 'Long text abt kukabara', addInfo: 'Additional info abt kukabara', buttonText: '15000 rur', date: new Date('December 17, 1990 03:24:00') },
@@ -19,7 +18,7 @@ function Shop() {
     ]);
 
     return (
-                <ItemsList items={goods} setItems={setGoods} noItemsFoundText="No goods found" sectionTitle='Our Best goods' options={[
+                <ItemsList valid={props.valid} items={goods} setItems={setGoods} noItemsFoundText="No goods found" sectionTitle='Our Best goods' options={[
                     { value: 'title', name: 'by name' },
                     { value: 'price', name: 'by price' },
                     { value: 'date', name: 'by date' }

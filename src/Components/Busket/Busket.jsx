@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import Btn from "../../UI/Btn/Btn";
 import { useState } from "react";
-import Modal from "../../UI/Modal/Modal";
+import Modal from "../../ui/Modal/Modal";
+import Btn from "../../ui/Btn/Btn";
+import { clearBusket, noPrice } from "../../store/busketReducer";
 
 const BusketDiv = styled.div`
     display: flex;
@@ -27,8 +28,8 @@ const Busket = () => {
     const [modal, setModal] = useState(false);
 
     const removeAll = () => {
-        dispatch({ type: 'clear' });
-        dispatch({type: 'noPrice'})
+        dispatch(clearBusket());
+        dispatch(noPrice())
     }
     if (busket.length > 0) {
         return (

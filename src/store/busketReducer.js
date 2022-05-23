@@ -22,3 +22,10 @@ export const busketReducer = (state = defaultState, action) => {
             return state;
     }
 }
+
+export const addToBusket = (payload) => ({ type: 'toBusket', payload })
+export const rmFromBusket = (payload) => ({ type: 'outOfBusket', payload })
+export const incPrice = (payload) => ({ type: 'inceasePrice', payload })
+export const redPrice = (payload) => ({ type: 'reducePrice', payload })
+export const noPrice = (payload) => ({ type: 'noPrice', payload })
+export const clearBusket = (payload) => ({ type: 'clear', payload })

@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Btn from "../../UI/Btn/Btn";
 import logo from "../../image/logo.jpg";
-import Modal from "../../UI/Modal/Modal";
-import Input from "../../UI/Input/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserToken } from "../../Async/authorize";
 import { Link } from "react-router-dom";
-import Navbar from "../../UI/Navbar/Navbar";
+import Btn from "../../ui/Btn/Btn";
+import Modal from "../../ui/Modal/Modal";
+import Input from "../../ui/Input/Input";
+import Navbar from "../../ui/Navbar/Navbar";
+import axios from "axios";
+import { userAuth, userName, userToken } from "../../store/authReducer";
 
 const Header = styled.header`
     display: flex;
@@ -40,66 +41,80 @@ const HeaderRight = styled.div`
     flex-wrap: wrap;
 `
 
-
-const MyHeader = () => {
+const MyHeader = (props) => {
     const [modal, setModal] = useState(false);
     const [userLogin, setUserLogin] = useState('tulyavkoilya@yandex.ru');
     const [userPassword, setUserPassword] = useState('test123123');
     const dispatch = useDispatch();
     var isAuth = useSelector(state => state.auth.auth);
-
     var busket = useSelector(state => state.busket.goodsInBusket);
     var busketCount = 0;
     busket.map(busketItem => busketCount++);
 
     const quit = () => {
-        dispatch({ type: 'token', payload: '' });
-        dispatch({ type: 'name', payload: 'Guest' });
-        dispatch({ type: 'auth', payload: false });
+        dispatch(userToken(''));
+        dispatch(userName('Guest'));
+        dispatch(userAuth(false));
+    }
+    const handleAuth = async (userLogin, userPassword) => {
+        if(userLogin !== "" && userPassword !== "")
+            try{
+                const response = await axios.post('https://api.englishpatient.org/login', JSON.stringify(
+                    {
+                        "email": userLogin,
+                        "password": userPassword
+                    }
+                ),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if(typeof response.data.token !== 'undefined'){
+                    dispatch(userToken(response?.data?.token));
+                    dispatch(userName(userLogin));
+                    dispatch(userAuth(true));
+                }
+                else{
+                    alert('Неверный логин или пароль')
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        else{
+            alert('Заполнены не все нобходимые поля');
+        }
     }
 
-    if (isAuth) {
             return (
               <Header className="header dark">
-
+                {isAuth ? "" :
+                    <Modal display={modal} setDisplay={setModal}>
+                        <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Enter u'r login" />
+                        <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Enter u'r pass" />
+                        <Btn onClick={() => handleAuth(userLogin, userPassword) }>Login</Btn>
+                    </Modal>
+                }
                 <LogoBlock>
                     <img src={logo} alt="logo" />
                 </LogoBlock>
                     <HeaderRight>
                         <div className="row" style={{ flexWrap: `wrap` }}>
                             <Link className="button" to="/busket">Your Busket<p className="busketCount">{busketCount}</p></Link>
-                            <Btn className="quitButton button" onClick={() => quit()}>Logout</Btn>
+                            {isAuth ? 
+                                <Btn className="quitButton button" onClick={() => quit()}>Logout</Btn>
+                                :
+                                <Btn onClick={() => setModal(true)}>Login</Btn>
+                            }
                         </div>
                 </HeaderRight>
                 <Navbar/>
               </Header>
         
         );
-    }
-    return (
-        <Header className="header dark">
 
-            <Modal display={modal} setDisplay={setModal}>
-                <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Enter u'r login" />
-                <Input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Enter u'r pass" />
-                <Btn onClick={
-                    () => dispatch(getUserToken(userLogin, userPassword))
-                }>Login</Btn>
-            </Modal>
-
-            <LogoBlock>
-                <img src={logo} alt="logo" />
-            </LogoBlock>
-            <HeaderRight>
-                <div className="row" style={{ flexWrap: `wrap` }}>
-                    <Link className="button busketButton" to="/busket">Your Busket<p className="busketCount">{busketCount}</p></Link>
-                    <Btn onClick={() => setModal(true)}>Login</Btn>
-                </div>
-            </HeaderRight>
-            <Navbar />
-        </Header>
-    );
-    
 };
 
 export default MyHeader;

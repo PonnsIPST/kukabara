@@ -1,10 +1,9 @@
 import React from "react";
-import ItemsList from "../Components/ItemsList/ItemsList";
+import ItemsList from "../components/ItemsList/ItemsList";
 import { useState } from "react"
-import "../style/style.css";
 
 
-function Blog() {
+function Blog(props) {
 
     const [items, setItems] = useState([
         { id: 1, title: 'Post abt kukabara', body: 'Long text abt kukabara', addInfo: 'Additional info abt kukabara', buttonText: '', date: new Date('December 17, 1990 03:24:00') },
@@ -19,7 +18,7 @@ function Blog() {
     ]);
 
     return (
-                <ItemsList items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' options={[
+                <ItemsList valid={props.valid} items={items} setItems={setItems} noItemsFoundText="No items found" sectionTitle='Our latest news' options={[
                     { value: 'title', name: 'by name' },
                     { value: 'date', name: 'by date' }
                 ]} />

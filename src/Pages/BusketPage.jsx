@@ -1,6 +1,5 @@
 import React from "react";
-import Busket from "../Components/Busket/Busket";
-import "../style/style.css";
+import Busket from "../components/Busket/Busket";
 
 
 function BusketPage() {

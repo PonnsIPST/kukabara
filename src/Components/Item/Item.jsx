@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Btn from "../../UI/Btn/Btn";
+import Btn from "../../ui/Btn/Btn";
 import {useSelector} from "react-redux"
 import { useDispatch } from "react-redux"
 const ItemInRow = styled.div`
@@ -31,7 +31,7 @@ const Item = function (props) {
         dispatch({ type: 'toBusket', payload: props.item });
         dispatch({ type: 'increasePrice', payload: parseInt(props.item.buttonText, 10) });
     }
-    const isAuth = (useSelector(state => state.auth.token));
+    const isAuth = (useSelector(state => state.auth.auth));
     if (!props.item.buttonText) {
         return (
             <ItemInRow>

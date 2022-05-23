@@ -1,15 +1,16 @@
 import React, {useState} from "react";
-import Btn from "../../UI/Btn/Btn";
-import Input from "../../UI/Input/Input";
+import Btn from "../../ui/Btn/Btn";
+import Input from "../../ui/Input/Input";
 import Item from "../Item/Item";
-import Select from "../../UI/Select/Select";
+import Select from "../../ui/Select/Select";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 
 const ItemsList = function (props) {
-
-    const userHasToken = (useSelector(state => state.auth.token));
+    const valid = props.valid;
+    valid();
+    const isAuth = (useSelector(state => state.auth.auth));
 
     const items = props.items;
     const setItems = props.setItems;
@@ -68,7 +69,6 @@ const ItemsList = function (props) {
         setButtonText('')
     }
 
-    if (userHasToken) {
         return (
             <section>
                 <h2>{props.sectionTitle}</h2>
@@ -89,7 +89,7 @@ const ItemsList = function (props) {
                     }
                 </div>
 
-                {userHasToken
+                {isAuth
                     ?
                     <form>
                         <Input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Название айтема" />
@@ -103,29 +103,6 @@ const ItemsList = function (props) {
                 }
             </section>
         );
-    }
-    return (
-        <section>
-            <h2>{props.sectionTitle}</h2>
-            <div className="container">
-                <div className="row">
-                    <Select value={selectedSort} onChange={sortItems} defValue={'Sort'} options={props.options} />
-                    <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Поиск" />
-                </div>
-                {sortAndSearch.length !== 0 ?
-                    <div className="row">
-
-                        {sortAndSearch.map((item) =>
-                            <Item item={item} key={item.id} />
-                        )}
-                    </div>
-                    :
-                    <h2>{props.noItemsFoundText}</h2>
-                }
-            </div>
-
-        </section>
-    );
 }
 
 export default ItemsList;
