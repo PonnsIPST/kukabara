@@ -11,13 +11,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { userAuth, userName, userToken } from "./store/authReducer";
 import { createGlobalStyle } from "styled-components";
+import MyHeader from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import Shop from "./pages/Shop";
 import Blog from "./pages/Blog";
 import BusketPage from "./pages/BusketPage";
-import Users from "./pages/Users";
 import Main from "./pages/Main";
-import MyHeader from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import Users from "./pages/Users";
 
 const GlobalStyle = createGlobalStyle`
   * {

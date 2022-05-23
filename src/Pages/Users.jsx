@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../async/users";
 import Btn from "../ui/Btn/Btn";
-import { Loader } from "../ui/Loader/Loader";
 
 function Users(props) {
     var dispatch = useDispatch()
