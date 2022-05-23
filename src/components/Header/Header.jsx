@@ -95,7 +95,6 @@ const MyHeader = (props) => {
             return (
               <Header className="header dark">
                 {isLoading === true ? <Loader/> : ""}
-                {console.log(isLoading)}
                 {isAuth ? "" :
                     <Modal display={modal} setDisplay={setModal}>
                         <Input type="username" value={userLogin} onChange={e => setUserLogin(e.target.value)} placeholder="Enter u'r login" />

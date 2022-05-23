@@ -245,7 +245,7 @@ function App() {
       dispatch(userToken(''));
   }
     return (
-        <Router> {console.log('draw App.js')}
+        <Router>
             <GlobalStyle/>
             <ThemeProvider theme={theme}>
                 <MyDiv>

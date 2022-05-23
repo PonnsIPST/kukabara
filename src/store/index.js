@@ -3,37 +3,21 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { authReducer } from "./authReducer";
 import { busketReducer } from "./busketReducer";
 import { userFromServerReducer} from "./userFromServerReducer"
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import thunk from "redux-thunk";
 
-
-function saveToLocalStorage(state) {
-    try {
-        const serialisedState = JSON.stringify(state);
-        localStorage.setItem("persistantState", serialisedState);
-    } catch (e) {
-        console.warn(e);
-    }
+const persistConfig = {
+    key: 'root',
+    storage
 }
-
-function loadFromLocalStorage() {
-    try {
-        const serialisedState = localStorage.getItem("persistantState");
-        if (serialisedState === null) return undefined;
-        return JSON.parse(serialisedState);
-    } catch (e) {
-        console.warn(e);
-        return undefined;
-    }
-}
-
 const rootReducer = combineReducers({
     auth: authReducer,
     busket: busketReducer,
     userServer: userFromServerReducer
 });
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-const store = createStore(rootReducer, loadFromLocalStorage(), composeWithDevTools(applyMiddleware(thunk)));
-
-store.subscribe(() => saveToLocalStorage(store.getState()));
-
+export const persistor = persistStore(store);
 export default store;
